@@ -1,0 +1,16 @@
+node_modules/
+.env
+*.log
+*.tmp
+.DS_Store
+
+# Local Telegram state. The bridge stores real tokens and allowlists under
+# ~/.codex/channels/telegram by default, but keep repo-local state out too.
+channels/
+state/
+inbox/
+approved/
+messages.jsonl
+access.json
+bot.pid
+tmux-injector-state.json

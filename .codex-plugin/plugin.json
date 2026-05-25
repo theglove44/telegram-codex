@@ -1,0 +1,40 @@
+{
+  "name": "telegram-codex",
+  "version": "0.1.0",
+  "description": "Connect a Telegram bot to Codex through a local MCP bridge.",
+  "author": {
+    "name": "Local port of Anthropic Telegram plugin",
+    "url": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/telegram",
+  "repository": "https://github.com/anthropics/claude-plugins-official",
+  "license": "Apache-2.0",
+  "keywords": [
+    "telegram",
+    "mcp",
+    "bot",
+    "bridge"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Telegram Codex",
+    "shortDescription": "Read and reply to Telegram bot messages",
+    "longDescription": "Run a local Telegram bot bridge for Codex. Provides MCP tools to list inbound messages, reply, react, edit messages, and download attachments, with allowlist and pairing controls.",
+    "developerName": "Local port of Anthropic Telegram plugin",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/telegram",
+    "privacyPolicyURL": "https://telegram.org/privacy",
+    "termsOfServiceURL": "https://telegram.org/tos",
+    "defaultPrompt": [
+      "Check recent Telegram messages",
+      "Reply to my latest Telegram DM"
+    ],
+    "brandColor": "#2AABEE",
+    "screenshots": []
+  }
+}

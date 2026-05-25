@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "telegram-codex": {
+      "command": "bun",
+      "args": [
+        "run",
+        "--cwd",
+        "/path/to/telegram-codex",
+        "--shell=bun",
+        "--silent",
+        "start"
+      ]
+    }
+  }
+}
