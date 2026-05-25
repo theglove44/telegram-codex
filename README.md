@@ -14,7 +14,119 @@ Codex does not use Claude Code's `--channels` flow, so inbound Telegram messages
 
 For Claude-like live TUI operation, run Codex inside `tmux` and start the tmux injector. It tails `messages.jsonl`, pastes a wrapped `<channel source="plugin:telegram">` message into the Codex pane, and presses Enter.
 
-## Setup
+## Quick setup
+
+Goal: after one-time setup, run this from any directory:
+
+```sh
+codex-telegram
+```
+
+That starts or reuses a `codex-telegram` tmux session, runs Codex in the current directory, starts the Telegram injector, and attaches to tmux.
+
+### 1. Clone and install
+
+```sh
+git clone git@github.com:theglove44/telegram-codex.git ~/plugins/telegram-codex
+cd ~/plugins/telegram-codex
+bun install
+```
+
+### 2. Register the Codex MCP server
+
+```sh
+codex mcp add telegram-codex -- bun run --cwd "$HOME/plugins/telegram-codex" --shell=bun --silent start
+```
+
+If you installed the repo somewhere else, replace `$HOME/plugins/telegram-codex` with that path.
+
+### 3. Install the plugin metadata
+
+If `~/plugins` is already configured as the `personal` marketplace:
+
+```sh
+codex plugin add telegram-codex@personal
+```
+
+If not, add the marketplace first:
+
+```sh
+codex plugin marketplace add "$HOME"
+codex plugin add telegram-codex@personal
+```
+
+Restart Codex after adding the MCP server/plugin.
+
+### 4. Configure Telegram token
+
+Create a Telegram bot with `@BotFather`, then save the token:
+
+```sh
+mkdir -p ~/.codex/channels/telegram
+printf 'TELEGRAM_BOT_TOKEN=<your-bot-token>\n' > ~/.codex/channels/telegram/.env
+chmod 600 ~/.codex/channels/telegram/.env
+```
+
+Do not commit this file.
+
+### 5. Pair your Telegram account
+
+1. Start/restart Codex so the MCP server is polling.
+2. DM your bot.
+3. The bot replies with a code.
+4. In Codex, run:
+
+```text
+telegram-codex access pair <code>
+```
+
+Then lock DMs down to paired users:
+
+```text
+telegram-codex access policy allowlist
+```
+
+### 6. Add the one-command alias
+
+Add this to `~/.zshrc`:
+
+```sh
+alias codex-telegram='$HOME/plugins/telegram-codex/scripts/start-tmux-live.sh && tmux attach -t codex-telegram'
+```
+
+Reload your shell:
+
+```sh
+source ~/.zshrc
+```
+
+### 7. Use it from any project directory
+
+```sh
+cd ~/Projects/my-project
+codex-telegram
+```
+
+First run creates a `codex-telegram` tmux session with:
+
+- Codex pane: `codex-telegram:1.1`
+- Injector pane: `codex-telegram:2.1`
+
+If the session already exists, it reuses the existing Codex pane. To change project directory cleanly, stop the old session first:
+
+```sh
+tmux kill-session -t codex-telegram
+cd ~/Projects/other-project
+codex-telegram
+```
+
+Check from Telegram:
+
+```text
+/status
+```
+
+## Manual setup
 
 1. Create a Telegram bot with `@BotFather`.
 2. Configure token with the `telegram-codex:configure` skill, or write:
