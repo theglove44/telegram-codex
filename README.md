@@ -92,6 +92,7 @@ Add this to `~/.zshrc`:
 
 ```sh
 alias codex-telegram='$HOME/plugins/telegram-codex/scripts/start-tmux-live.sh && tmux attach -t codex-telegram'
+alias codex-telegram-skip='TELEGRAM_CODEX_SKIP_PERMISSIONS=1 $HOME/plugins/telegram-codex/scripts/start-tmux-live.sh && tmux attach -t codex-telegram'
 ```
 
 Reload your shell:
@@ -105,6 +106,21 @@ source ~/.zshrc
 ```sh
 cd ~/Projects/my-project
 codex-telegram
+```
+
+To avoid approval prompts in the Telegram session:
+
+```sh
+codex-telegram-skip
+```
+
+This starts Codex with `--dangerously-bypass-approvals-and-sandbox`. Only use it with a paired, allowlisted bot you control.
+
+If a `codex-telegram` tmux session already exists, stop it first so the skip-permissions flag applies to a fresh Codex process:
+
+```sh
+tmux kill-session -t codex-telegram
+codex-telegram-skip
 ```
 
 First run creates a `codex-telegram` tmux session with:
