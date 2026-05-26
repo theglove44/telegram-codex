@@ -46,7 +46,7 @@ function tick() {
   if (state.offset > size) state.offset = 0
   if (state.offset === size) return
 
-  const raw = readFileSync(INBOX_LOG, 'utf8').slice(state.offset)
+  const raw = readFileSync(INBOX_LOG).subarray(state.offset).toString('utf8')
   state.offset = size
 
   for (const line of raw.split('\n')) {

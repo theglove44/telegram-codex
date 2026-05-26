@@ -34,7 +34,7 @@ if tmux list-windows -t "$SESSION" -F '#{window_name}' | grep -qx "$INJECTOR_WIN
 fi
 
 tmux new-window -d -t "$SESSION" -n "$INJECTOR_WINDOW" \
-  "cd '$PLUGIN_DIR' && npm run tmux-injector -- --target '$TARGET'"
+  "cd '$PLUGIN_DIR' && bash scripts/supervise-tmux-injector.sh '$TARGET'"
 
 cat <<EOF
 Codex Telegram live mode started.
